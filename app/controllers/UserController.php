@@ -16,10 +16,15 @@
 
 		function Login(){
 			if(Input::has('username')){
+				$credentials = Input::only('username','password');
 
-				$name = Input::get('username');
-				$password = Input::get('password');
-				echo $name."<br>".$password;
+				if(Auth::attempt($credentials)){
+					$username = Input::get('username');
+					Session::put('user',$username);
+					return Redirect::intended('/');
+				}
+				else
+					return Redirect::to('login');
 			}		
 		}
 	}

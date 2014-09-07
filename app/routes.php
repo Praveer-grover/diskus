@@ -21,8 +21,11 @@ Route::post('/','HomeController@searchTopic');
 
 
 Route::get('/signup',function(){
-
-	return View::make('signup');
+	if(Session::get('user')){
+		Redirect::to('/');
+	}
+	else
+		return View::make('signup');
 
 });
 
@@ -31,7 +34,11 @@ Route::post('/signup','UserController@Signup');
 
 
 Route::get('/login',function(){
-	return View::make('login');
+	if(Session::get('user')){
+		Redirect::to('/');
+	}
+	else
+		return View::make('login');
 });
 
 
